@@ -17,8 +17,10 @@ import shap
 from itertools import cycle
 from scipy import interp
 
-file_features= open("features-2.txt","w+")
-file_auc= open("auc-2.txt","w+")
+d_name = sys.argv[1]
+
+file_features= open("d_name.txt","w+")
+file_auc= open("d_name.txt","w+")
 
 # Parameters
 LABEL_COLUMN_NAME = 'satisfaction'
@@ -198,7 +200,7 @@ for c in range(1,5):
 
 percentage = (best_models / total) * 100
 
-with open('../reports/latin.txt', 'w') as f:
+with open(d_name + 'latin.txt', 'w') as f:
     print("Total number of models: %i\nBest achieved model: %f\nFeatures related to the smallest set of features: %s\nNumber of best models: %i \nPercentage of best models: %f" % (total,best_generated_model,feat,best_models,percentage), file=f)
 
 file_features.close()
