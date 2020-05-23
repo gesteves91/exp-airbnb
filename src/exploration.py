@@ -21,48 +21,56 @@ file_features= open("features-2.txt","w+")
 file_auc= open("auc-2.txt","w+")
 
 # Parameters
-LABEL_COLUMN_NAME = 'bugs_classification'
-UNWANTED_COLUMNS = ['numberOfMethods', 
-                    'numberOfRefactoringsUntil:',
-                    'noc', 
-                    'numberOfAuthorsUntil:', 
-                    'numberOfPrivateAttributes',
-                    'avgCodeChurnUntil:', 
-                    'avgLinesRemovedUntil:', 
-                    'maxLinesAddedUntil:'
-                    'avgLinesAddedUntil:', 
-                    'lcom',
-                    'CvsLinEntropy', 
-                    'numberOfVersionsUntil:',
-                    'numberOfPublicMethods', 
-                    'numberOfPublicAttributes',
-                    'numberOfAttributesInherited',
-                    'wmc',
-                    'maxCodeChurnUntil:'
-                    ]
+LABEL_COLUMN_NAME = 'satisfaction'
+UNWANTED_COLUMNS = ['host_response_rate', 'host_listings_count',
+       'host_total_listings_count', 'host_has_profile_pic',
+       'host_identity_verified', 'is_location_exact', 'accommodates',
+       'bathrooms', 'bedrooms', 'beds',
+       'cleaning_fee', 'guests_included', 'minimum_nights',
+       'minimum_nights_avg_ntm', 'maximum_nights_avg_ntm', 
+       'has_availability', 'availability_60', 
+       'availability_90', 'availability_365',
+       'requires_license', 'is_business_travel_ready',
+       'require_guest_profile_picture', 'require_guest_phone_verification',
+       'calculated_host_listings_count_shared_rooms',
+       'host_verifications_count',
+       'host_response_time_a few days or more',
+       'host_response_time_host_response_time',
+       'host_response_time_within a day',
+       'host_response_time_within a few hours',
+       'host_response_time_within an hour',
+       'cancellation_policy_cancellation_policy',
+       'cancellation_policy_flexible', 'cancellation_policy_moderate',
+       'cancellation_policy_strict',
+       'cancellation_policy_strict_14_with_grace_period',
+       'cancellation_policy_super_strict_30',
+       'cancellation_policy_super_strict_60', 'satisfaction',
+       'cancellation_policy_flexible_new', 'cancellation_policy_moderate_new',
+       'cancellation_policy_strict_new',
+       'cancellation_policy_super_strict_30_new',
+       'cancellation_policy_super_strict_60_new']
 
 WANTED_COLUMNS = [
-       'numberOfFixesUntil:',
-       'linesAddedUntil:',
-       'linesRemovedUntil:', 
-       'maxLinesRemovedUntil:',
-       'codeChurnUntil:',
-       'ageWithRespectTo:', 
-       'weightedAgeWithRespectTo:',
-       'CvsEntropy', 
-       'CvsWEntropy', 
-       'CvsLogEntropy',
-       'CvsExpEntropy', 
-       'cbo', 
-       'dit', 
-       'fanIn', 
-       'fanOut',
-       'numberOfAttributes', 
-       'numberOfAttributesInherited', 
-       'numberOfMethodsInherited',
-       'numberOfPrivateMethods',
-       'rfc',
-       ]
+    'review_scores_accuracy',
+    'review_scores_value',
+    'review_scores_cleanliness',
+    'review_scores_communication',
+    'host_is_superhost',
+    'review_scores_checkin',
+    'number_of_reviews',
+    'calculated_host_listings_count',
+    'price',
+    'review_scores_location',
+    'number_of_reviews_ltm',
+    'reviews_per_month',
+    'amenities_count',
+    'calculated_host_listings_count_entire_homes',
+    'availability_30',
+    'maximum_nights',
+    'security_deposit',
+    'instant_bookable',
+    'extra_people',
+    'calculated_host_listings_count_private_rooms']
 
 N_FOLDS = 5
 RANDOM_STATE = 1
@@ -145,7 +153,7 @@ def check_best_models(acc,features):
 df_mblood = pd.read_csv(sys.argv[1])
 
 # Maps label
-df_mblood.dropna(axis=0, subset=['bugs_classification'], inplace=True)
+df_mblood.dropna(axis=0, subset=['satisfaction'], inplace=True)
 
 #all_features = list(df_mblood.columns)
 #for f in UNWANTED_COLUMNS + [LABEL_COLUMN_NAME]:
@@ -190,7 +198,7 @@ for c in range(1,5):
 
 percentage = (best_models / total) * 100
 
-with open('../reports/total-2.txt', 'w') as f:
+with open('../reports/latin.txt', 'w') as f:
     print("Total number of models: %i\nBest achieved model: %f\nFeatures related to the smallest set of features: %s\nNumber of best models: %i \nPercentage of best models: %f" % (total,best_generated_model,feat,best_models,percentage), file=f)
 
 file_features.close()
